@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__nuxt {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  /* include some tailwind classes */
+  @apply max-w-[475px] m-auto relative overflow-hidden;
+  background-color: #333;
+}
+
+dialog {
+  max-width: 475px;
+}

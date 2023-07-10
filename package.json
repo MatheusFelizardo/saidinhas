@@ -1,0 +1,29 @@
+{
+  "name": "saidinhas",
+  "private": true,
+  "scripts": {
+    "build": "nuxi build",
+    "dev": "cross-env NODE_ENV=development nuxi dev",
+    "generate": "nuxi generate",
+    "preview": "nuxi preview",
+    "postinstall": "nuxi prepare"
+  },
+  "devDependencies": {
+    "@kevinmarrec/nuxt-pwa": "^0.17.0",
+    "@nuxt/devtools": "latest",
+    "@types/node": "^18",
+    "autoprefixer": "^10.4.14",
+    "cross-env": "^7.0.3",
+    "nuxt": "^3.5.2",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.3.2"
+  },
+  "dependencies": {
+    "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
+    "@pinia/nuxt": "^0.4.11",
+    "axios": "^1.4.0",
+    "gsap": "^3.12.1",
+    "pinia": "^2.1.4",
+    "vue-multiselect": "^3.0.0-beta.2"
+  }
+}
