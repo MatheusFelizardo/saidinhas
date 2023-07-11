@@ -76,7 +76,7 @@
 
 <script setup>
   const runtimeConfig = useRuntimeConfig()
-  const { $userStore, $toast } = useNuxtApp()
+  const { $userStore, $toast, $expenseStore } = useNuxtApp()
   const previewImage = ref(null)
   import gsap from 'gsap'
 
@@ -141,6 +141,9 @@
     if (profile_picture) formData.append('profile_picture', profile_picture)
 
     const reponse = await $userStore.update(formData)
+    if (currency !== user.value.currency) {
+      await $expenseStore.refreshData()
+    }
     if (reponse.user) {
       new $toast({
         id: 'user_update_sucessfully_toast',

@@ -184,6 +184,8 @@ export const useExpenseStore = defineStore('expense', {
       this.hasExpenseInAnotherMonth = false
     },
     async refreshData() {
+      this.restartStates();
+      
       await this.getAllExpenses()
       await this.filterExpensesByMonth()
       await this.calcTotalOfCurrentMonth()
