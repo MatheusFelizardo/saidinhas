@@ -27,7 +27,7 @@
           <div>
             <label for="amount" class="block mb-0.5 text-xs font-bold text-white">PRICE</label>
             <input 
-            :value="props.data.amount"
+            :value="Number(props.data.amount).toFixed(2)"
             type="text"
             @input="validateInputNumber" 
             id="amount" 
@@ -37,11 +37,11 @@
 
         <div class="mb-5">
           <label for="currency" class="block mb-0.5 text-xs font-bold text-white">CURRENCY</label>
-          <select id="currency" class="bg-transparent border-b border-gray-300 text-white text-sm outline-none  block w-full py-1 placeholder-white placeholder-opacity-20 ">
+          <select disabled id="currency" class="bg-transparent border-b border-gray-300 text-white text-sm outline-none  block w-full py-1 placeholder-white placeholder-opacity-20 ">
             <option value="EUR">Euro</option>
-            <!-- <option value="USD">Dolar</option>
+            <option value="USD">Dolar</option>
             <option value="BRL">Real</option>
-            <option value="GBP">Pound Sterling</option> -->
+            <option value="GBP">Pound Sterling</option>
           </select>
         </div>
 
@@ -71,8 +71,10 @@
   import SpinIcon from './icons/SpinIcon.vue';
   import gsap from 'gsap'
   import { validateInputNumber } from '../utils'
+  import { storeToRefs } from 'pinia';
 
-  const { $expenseStore, $toast } = useNuxtApp()
+  const { $expenseStore, $toast, $userStore } = useNuxtApp()
+  const { user } = storeToRefs($userStore)
 
   const props = defineProps({
     isModalOpen: Boolean,
@@ -100,6 +102,9 @@
       mainLayout.style.pointerEvents = 'none'
 
       window.addEventListener('click', detectClickOutside)
+
+      const currency = document.getElementById('currency')
+      currency.value = user.value.currency || 'EUR'
       
     }}), 100)
 

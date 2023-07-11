@@ -36,11 +36,11 @@
   
         <div class="mb-5">
           <label for="currency" class="block mb-0.5 text-xs font-bold text-white">CURRENCY</label>
-          <select id="currency" class="bg-transparent border-b border-gray-300 text-white text-sm outline-none  block w-full py-1 placeholder-white placeholder-opacity-20 ">
+          <select disabled id="currency" class="bg-transparent border-b border-gray-300 text-white text-sm outline-none  block w-full py-1 placeholder-white placeholder-opacity-20 ">
             <option value="EUR">Euro</option>
-            <!-- <option value="USD">Dolar</option>
+            <option value="USD">Dolar</option>
             <option value="BRL">Real</option>
-            <option value="GBP">Pound Sterling</option> -->
+            <option value="GBP">Pound Sterling</option>
           </select>
         </div>
   
@@ -66,9 +66,13 @@
 
 <script setup>
   import SpinIcon from '@/components/icons/SpinIcon.vue'
+  
+  import { storeToRefs } from 'pinia';
   import gsap from 'gsap'
   import { validateInputNumber } from '~/utils'
   const { $expenseStore, $userStore, $toast } = useNuxtApp()
+  const { user } = storeToRefs($userStore)
+
 
   const props = defineProps({
     isModalOpen: Boolean,
@@ -85,6 +89,9 @@
       mainLayout.style.pointerEvents = 'none'
 
       window.addEventListener('click', detectClickOutside)
+
+      const currency = document.getElementById('currency')
+      currency.value = user.value.currency || 'EUR'
       
     }}), 100)
   })

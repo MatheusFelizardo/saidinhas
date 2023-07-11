@@ -18,7 +18,12 @@
             <h1 
               v-else 
               :class="expenses.length === 0 && loading ? 'bg-gray-50 text-gray-50 px-4' : '' " 
-              class=" relative text-white text-xl font-semibold text-center">You spent <span class="text-yellow-300 font-bold">€{{totalOfThisMonth}}</span> in {{selectedMonth}}
+              class=" text-white text-xl font-semibold text-center">You spent <span class="text-yellow-300 font-bold">
+                {{getCurrencySymbol(user.currency)}}{{totalOfThisMonth.toFixed(2)}}
+              </span> in 
+              <NuxtLink :to="currentMonth && `/expenses/${currentMonth}`">
+                {{currentMonth}}
+              </NuxtLink>
             </h1>
 
             <div 
@@ -87,7 +92,7 @@
   import InfoMarkerIcon from '@/components/icons/InfoMarkerIcon.vue'
   import AddExpenseModal from '@/components/AddExpenseModal.vue'
   import { storeToRefs } from 'pinia';
-  import { capitalize } from '~/utils';
+  import { capitalize, getCurrencySymbol } from '~/utils';
   import FilterExpenseIcon from '~/components/icons/FilterExpenseIcon.vue';
   
   const route = useRoute()
@@ -128,12 +133,6 @@
     loading.value = false
   })
 
-  const handleCloseExpenseInfoModal = () => {
-    showExpenseInfoModal.value = !showExpenseInfoModal
-
-    localStorage.setItem('infoModal', 'true')
-  }
-
   const handleUpdateDataEvent = async () => {
     await getMonthData()
   }
@@ -146,5 +145,9 @@
     totalOfThisMonth.value = await $expenseStore.calcTotalOfCurrentMonth(month, expensesResp)
   }
 
-
+  watchEffect(async ()=> {
+    if (user?.value.currency) {
+      await getMonthData()
+    }
+  })
 </script>

@@ -27,8 +27,7 @@
             :class="expenses.length === 0 && loading ? 'bg-gray-50 text-gray-50 px-4' : '' " 
             class=" text-white text-xl font-semibold text-center">You spent <span class="text-yellow-300 font-bold">
 
-              {{getCurrencySymbol(user.currency)}}
-              {{totalOfThisMonth.toFixed(2)}}
+              {{getCurrencySymbol(user.currency)}}{{totalOfThisMonth.toFixed(2)}}
             </span> in 
             <NuxtLink :to="currentMonth && `/expenses/${currentMonth}`">
               {{currentMonth}}

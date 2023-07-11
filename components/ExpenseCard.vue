@@ -8,7 +8,7 @@
         </div>
     
         <div class="flex flex-col justify-between text-right">
-          <h1 class="font-semibold text-sm">{{ `${props.currency} ${props.amount}` }}</h1>
+          <h1 class="font-semibold text-sm">{{ `${props.currency} ${Number(props.amount).toFixed(2)}` }}</h1>
           <p class="text-xs">{{ formatDate(props.date) }}</p>
         </div>
       </div>
