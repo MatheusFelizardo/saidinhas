@@ -20,10 +20,7 @@
               :class="expenses.length === 0 && loading ? 'bg-gray-50 text-gray-50 px-4' : '' " 
               class=" text-white text-xl font-semibold text-center">You spent <span class="text-yellow-300 font-bold">
                 {{getCurrencySymbol(user.currency)}}{{totalOfThisMonth.toFixed(2)}}
-              </span> in 
-              <NuxtLink :to="currentMonth && `/expenses/${currentMonth}`">
-                {{currentMonth}}
-              </NuxtLink>
+              </span> in {{ selectedMonth }}
             </h1>
 
             <div 
@@ -97,7 +94,7 @@
   
   const route = useRoute()
   const { $expenseStore, $userStore, $toast } = useNuxtApp()
-  const { hasExpenseInAnotherMonth, currentMonth } = storeToRefs($expenseStore)
+  const { hasExpenseInAnotherMonth } = storeToRefs($expenseStore)
   const selectedMonth = ref(null)
   const { user, token, authenticated } = storeToRefs($userStore)
   const loading = ref(true)
@@ -114,6 +111,8 @@
 
   onMounted(async () => {
     await getMonthData()
+
+    selectedMonth.value = capitalize(route.params.month)
     
     const infoModalStorage = localStorage.getItem('infoModal') 
     if (!infoModalStorage) {
