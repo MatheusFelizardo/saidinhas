@@ -168,4 +168,10 @@
     localStorage.setItem('infoModal', 'true')
   }
 
+  watchEffect(()=> {
+    if (route.params.month) {
+      selectedMonth.value = capitalize(route.params.month)
+    }
+  })
+
 </script>
