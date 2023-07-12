@@ -24,7 +24,14 @@
           <label class="block text-white text-sm font-bold mb-2" for="name">
             Name
           </label>
-          <input class="shadow appearance-none border rounded-sm w-full p-2.5 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder="Name" name="name" :value="user.name" />
+          <input 
+            class="shadow appearance-none border rounded-sm w-full p-2.5 leading-tight focus:outline-none focus:shadow-outline" 
+            type="text" 
+            placeholder="Name" 
+            name="name" 
+            @change="newuser = $event.target.value"
+            :value="newuser || user.name" 
+          />
         </div>
         <div class="mb-4" @click="showEmailToast()" >
           <label class="block text-white text-sm font-bold mb-2" for="email">
@@ -87,6 +94,7 @@
 
   const {isShowingEditModal, closeModal} = toRefs(props)
   const user = ref({})
+  const newuser = ref(null)
   const nameIcon = $userStore.getNameIcon
   user.value = $userStore.user
 

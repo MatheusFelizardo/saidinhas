@@ -35,7 +35,7 @@ I also deployed in Google Cloud for private use.
 - ~~feature: delete user~~ Done 26/06/23
 - ~~bug: after update the value and save, the screen shows the old value while saving~~ Done 03/07/2023
 - ~~bug: amount not accepting cents~~ Done 09/07/2023
-- bug: going from /expenses page to /expense/{month} the filter doens't work  
+- ~~bug: going from /expenses page to /expense/{month} the filter doens't work~~ Done 12/07/2023
 
 <br/>
 <p>Check the <a href="https://github.com/MatheusFelizardo/saidinhas-backend">back-end repo</a></p>
