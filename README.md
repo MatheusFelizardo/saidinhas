@@ -31,7 +31,7 @@ I also deployed in Google Cloud for private use.
 - feature: design and add category for expenses
 - feature: design and add filters (by category, low to high and high to low)
 - feature: chart comparing the expenses in the last 3 months
-- bug: fix bug when updating image. If the user edit the form and then update the profile image, the previous updates are lost.
+- ~~bug: if the user edit the form and then update the profile image, the previous updates are lost.~~ Done 12/07/2023
 - ~~feature: delete user~~ Done 26/06/23
 - ~~bug: after update the value and save, the screen shows the old value while saving~~ Done 03/07/2023
 - ~~bug: amount not accepting cents~~ Done 09/07/2023
