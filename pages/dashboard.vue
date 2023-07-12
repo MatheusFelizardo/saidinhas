@@ -88,10 +88,12 @@
         <div >
           <div class="mt-0 p-2 flex flex-col justify-between items-center gap-1 relative border border-white">
             <!-- Text pink with copy FPO -->
-            <div class="text-2xl text-pink-400 absolute left-[60px] top-[50%] translate-y-[-50%]">FPO</div>       
             <div class="flex flex-col justify-center items-center relative">
-              <p class="text-sm text-white mb-2">You spent 15% less then your previous month </p>
-              <img class="w-auto h-[130px]" src="/chart-preview.png" alt="">
+              <p class="text-sm text-white mb-2">Last 12 months expenses</p>
+              <!-- <img class="w-auto h-[130px]" src="/chart-preview.png" alt="">  -->
+              <div class="w-full">
+                <Chart />
+              </div>
             </div>
           </div>
         </div>

@@ -22,6 +22,7 @@
     "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
     "@pinia/nuxt": "^0.4.11",
     "axios": "^1.4.0",
+    "d3": "^7.8.5",
     "gsap": "^3.12.1",
     "pinia": "^2.1.4",
     "vue-multiselect": "^3.0.0-beta.2"
