@@ -16,3 +16,24 @@ body {
 dialog {
   max-width: 475px;
 }
+
+
+ /* width */
+ #custom-select ::-webkit-scrollbar {
+    width: 8px;
+}
+  
+/* Track */
+#custom-select ::-webkit-scrollbar-track {
+    background: white;
+}
+  
+/* Handle */
+#custom-select ::-webkit-scrollbar-thumb {
+    background: #f87171;
+}
+  
+/* Handle on hover */
+#custom-select ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

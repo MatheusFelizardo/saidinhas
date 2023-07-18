@@ -1,21 +1,48 @@
 <template>
   <div>
-    <svg ref="chartRef"></svg>
+    <div v-if="isLoading" class="text-white flex justify-center items-center my-5 min-h-[180px]" >
+      <SpinIcon />
+
+    </div>
+    <svg :class="isLoading ? 'hidden' : 'opacity-0'" ref="chartRef"></svg>
+
   </div>
 </template>
 
 <script setup>
   import { ref, onMounted } from 'vue';
   import * as d3 from 'd3';
+  import { storeToRefs } from 'pinia';
+  import SpinIcon from './icons/SpinIcon.vue';
+  import gsap from 'gsap';
 
+  const { $expenseStore } = useNuxtApp()
+  const { expenses } = storeToRefs($expenseStore)
+  const isLoading = ref(true)
+
+  const expensesByMonth = ref([])
   const chartRef = ref(null);
   const chartData = ref({
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    datasets: [{ data: [490.24, 1144.65, 0, 0, 0, 1690.42, 2150.75, 0, 0, 0, 0, 0] }],
+    datasets: [{ data: [] }],
   });
 
-  onMounted(() => {
-    renderChart();
+  const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+  const data = ref([])
+
+  onMounted(async () => {
+    setTimeout( async ()=> {
+    
+    await getChartData()
+    isLoading.value = false
+    renderChart()
+
+    gsap.to(chartRef.value, {
+      opacity: 1,
+      duration: 1,
+      delay: 0.5
+    })
+    }, 1000)
   });
 
   const renderChart = () => {
@@ -30,22 +57,22 @@
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
     const x = d3.scaleBand()
-      .domain(chartData.value.labels)
+      .domain(labels.value)
       .range([0, width])
       .padding(0.1);
 
     const y = d3.scaleLinear()
-      .domain([0, d3.max(chartData.value.datasets[0].data)])
+      .domain([0, d3.max(data.value)])
       .range([height, 0]);
 
     const line = d3.line()
-      .x((d, i) => x(chartData.value.labels[i]) + x.bandwidth() / 2)
+      .x((d, i) => x(labels.value[i]) + x.bandwidth() / 2)
       .y(d => y(d))
       .curve(d3.curveMonotoneX);
       
 
     svg.append('path')
-      .datum(chartData.value.datasets[0].data)
+      .datum(data.value)
       .attr('fill', 'none')
       .attr('stroke', 'white') // line color 
       .attr('stroke-width', 2)
@@ -53,9 +80,9 @@
       
 
     svg.selectAll('circle')
-      .data(chartData.value.datasets[0].data)
+      .data(data.value)
       .join('circle')
-      .attr('cx', (d, i) => x(chartData.value.labels[i]) + x.bandwidth() / 2)
+      .attr('cx', (d, i) => x(labels.value[i]) + x.bandwidth() / 2)
       .attr('cy', d => y(d))
       .attr('r', 4)
       .attr('fill', 'white'); // bullet color 
@@ -69,4 +96,27 @@
       .style('color', 'white'); // y axis color 
 
   };
+
+  const getChartData = async () =>  {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octomber', 'November', 'December']
+    
+    data.value = await Promise.all(months.map(async (month) => {
+      const total = (await $expenseStore.calcTotalOfCurrentMonth(month, expenses.value, false)).toFixed(2)
+      return +total
+    }))
+  }
+
+  watchEffect(async () => {
+    if (expenses.value.length && chartRef.value) {
+      isLoading.value = true
+      chartRef.value.innerHTML = ''
+      await getChartData()
+      renderChart()
+      
+      setTimeout(()=> {
+        isLoading.value = false
+      }, 1000)
+    }
+  })
+
 </script>

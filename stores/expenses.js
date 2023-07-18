@@ -82,8 +82,6 @@ export const useExpenseStore = defineStore('expense', {
       }
     },
     async calcTotalOfCurrentMonth(month, expense) {
-      // To do: Use currency API to convert the saved currencies to the selected one (EUR as default)
-      
       if (month) {
         let total = 0
         const expenseOnThisMonth = expense.filter(expense => {

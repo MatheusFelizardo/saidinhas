@@ -15,6 +15,8 @@
       </NuxtLink >
      </div>
     </Menu>
+    <MenuSkeleton v-else />
+
 
     <main>
       <header class="h-[60px] p-5 my-2 flex justify-center items-center">
@@ -37,7 +39,7 @@
           <div 
           v-if="hasExpenseInAnotherMonth" 
           @click="showFilterModal = true" 
-          class="mt-3 text-white text-center text-sm flex items-center gap-2">
+          class="mt-3 text-white text-center text-sm flex items-center justify-center gap-2">
             <p>
               Explore other months' expenses
             </p>
@@ -111,6 +113,7 @@
   import { storeToRefs } from 'pinia';
   import FilterExpenseIcon from '~/components/icons/FilterExpenseIcon.vue';
   import { capitalize, getCurrencySymbol } from '~/utils';
+import MenuSkeleton from '~/components/skeletons/MenuSkeleton.vue';
   const { $expenseStore, $userStore } = useNuxtApp()
   const { expenses, totalOfThisMonth, currentMonth, hasExpenseInAnotherMonth } = storeToRefs($expenseStore)
   const { user, token, authenticated } = storeToRefs($userStore)

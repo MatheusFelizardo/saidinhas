@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mt-[20px] px-4">
+  <div id="custom-select" class="w-full mt-[20px] px-4">
     <input type="hidden" :value="selected">
 
     <div>
@@ -50,7 +50,8 @@
   watchEffect(() => {
     if (isShowingOptions.value) {
       gsap.to(optionsRef.value, {
-        maxHeight: '100%',
+        maxHeight: '220px',
+        height: 'fit-content',
         overflow: 'auto',
         duration: 0.3
       })
