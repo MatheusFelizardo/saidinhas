@@ -30,7 +30,7 @@ I also deployed in Google Cloud for private use.
 - ~~feature: dashboard to filter by month;~~ Done 03/07/2023 and 04/07/2023
 - feature: design and add category for expenses
 - feature: design and add filters (by category, low to high and high to low)
-- feature: chart comparing the expenses in the last 3 months
+- ~~feature: chart comparing the expenses in the last 3 months~~ Done 18/07/2023
 - ~~bug: if the user edit the form and then update the profile image, the previous updates are lost.~~ Done 12/07/2023
 - ~~feature: delete user~~ Done 26/06/23
 - ~~bug: after update the value and save, the screen shows the old value while saving~~ Done 03/07/2023
